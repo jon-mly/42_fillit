@@ -1,0 +1,24 @@
+fillit checker :
+
+ + MAKEFILE a revoir
+
+ - correct #8 : boucle infinie
+ - correct #13 : carre trop large
+ - correct #15 : placement different (priorite de placement du premier bloc le
+ plus en haut possible)
+ - correct #21 : placement different (plus a gauche au-lieu de plus en haut)
+
+ - error #17 : prend un bloc meme s'il n'est pas un tetrimino
+ - error #18 : idem
+ - error #19 : idem
+ - error #2 : boucle infinie
+ - error #23 : fichier vide, segfault
+ - error #25 : idem que 17/18/19
+ - error #3 : verifier sans atom
+ - error #5 : que des points -> boucle infinie
+ - error #7 : idem que 17
+ - error #8 : idem que 17
+
+verifier :
+- compte des char de bloc
+- blocs bien structures
