@@ -22,7 +22,7 @@
 
 
 
-# include "../libft_files/libft.h"
+# include "../libft/libft.h"
 # include <unistd.h>
 # include <sys/stat.h>
 # include <sys/types.h>

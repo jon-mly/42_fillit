@@ -14,9 +14,9 @@ NAME = fillit
 
 FLAGS = -Wall -Werror -Wextra
 
-FILLIT_REP = fillit/
+FILLIT_REP = Fillit_files/
 
-LIBFT_REP = libft_files/
+LIBFT_REP = libft/
 
 # MAKE SURE TO REPLACE THE WILDCARD
 SRCS = $(LIBFT_REP)libft.a \
@@ -50,6 +50,6 @@ clean:
 
 fclean: clean
 	cd $(LIBFT_REP) && make fclean
-	rm -f $(NAME)
+	#rm -f $(NAME)
 
 re: fclean all
