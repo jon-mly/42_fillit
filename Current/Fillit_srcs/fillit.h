@@ -16,6 +16,7 @@
  */
 
 # define EOF (-1)
+# define MAX_GRID_PAR (120)
 
 /*
  * ====================== STRUCTURES ===========================================
@@ -47,20 +48,29 @@ typedef struct	s_ref
  */
 
 // main.c
-void	       exit_with_error(void);
-void           display_grid(char **grid);
+void	       	exit_with_error(void);
+void           	display_grid(char **grid);
 
 // blocs_opti.c
-void	       move_bloc(char **tetri);
+void	       	move_bloc(char **tetri);
 
 // file_conversion.c
-t_filechar     **convert_file(int fd);
+t_filechar     	**convert_file(int fd);
 
 // chained_list_conversion.c
-char	       ***convert_chained_list(t_filechar **lst);
+char	       	***convert_chained_list(t_filechar **lst);
 
 // blocs_validation.c
 // ->
+
+// tools.c
+t_ref   		**create_ref(void);
+
+// grid_analysis.c
+int				get_max_height(char **grid);
+int				get_max_width(char **grid);
+int				get_square_size(char **grid);
+int				get_empty_points(char **grid);
 
 
 

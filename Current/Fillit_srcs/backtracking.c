@@ -34,47 +34,55 @@ int				try_bloc_order(char ***array, char **grid, t_order *order)
 	return (1);
 }
 
-t_solution	**append_solution(t_order *order, t_solution **solutions,
-		char **grid)
+static t_ref       *best_solution(char ***grid, t_order *order, t_ref *ref)
 {
-	t_solution	*new_node;
+    int     square_size;
+    int     height;
+    int     width;
+    int     empty_points;
 
-	//if (solutions && *solutions && (*solutions)->square_size <= get_square_size(grid))
-	//return (solutions);
-	if (!(solutions) || !(new_node = (t_solution *)malloc(sizeof(t_solution))))
-		return (NULL);
-	new_node->order = order;
-	new_node->square_size = get_square_size(grid);
-	new_node->next = *solutions;
-	*solutions = new_node;
-	return (solutions);
+    square_size = get_square_size(*grid);
+    height = get_max_height(*grid);
+    width = get_max_width(*grid);
+    empty_points = get_empty_points(*grid);
+    // The following condition is very important for the order of them :
+    // it decides if the new solution is better than the ref !
+    // Should be carefully reviewed.
+    // In order of priority :
+    // 1: square size
+    // 2: si 1=, max_height
+    // 3: si 2=, max_width
+    // 4: si 3:=, min empty_points
+    return (ref);
 }
 
-t_solution		**optimize_solution(char ***grid, char ***array, t_order *order, t_solution **solutions)
+/*
+ * Shall try to fit the newly generated order into the grid, optimize the
+ * placement by reducing the grid's size and, if needed, compare the solutions
+ * and update the ref.
+ * Returns the pointer anyway, updated or not.
+ */
+static t_ref        **optimize_if_needed(char ***grid, char ***array,
+    t_order *new_order, t_ref **p_ref)
 {
-	int		square_size;
+    // -- int     square_size;
 
-	square_size = 120;
 	// No solution found for the current order in the current grid
-	if (!(try_bloc_order(array, *grid, order)))
-		return (solutions);
+    if (!(try_bloc_order(array, *grid, new_order)))
+        return (p_ref);
 	// A solution has been found : should be optimized if possible to fit a narrower square
 	// Get current square size
-	square_size = get_square_size(*grid);
+    // -- square_size = get_square_size(grid);
 	// Try to fit the blocs into a square with a size reduced by one
-	while ((try_bloc_order(array, *grid, order)))
-		*grid = get_grid(--square_size, grid);
+    while ((try_bloc_order(array, *grid, order)))
+		*grid = get_grid(get_square_size(grid) - 1, grid);
 	// The last square size was too small for the blocs to fit :
 	// the grid is resized to the smallest size in which the blocs fit.
-	*grid = get_grid(++square_size, grid);
-	// the new solution is added to the list and returned
-	solutions = append_solution(orddup(order), solutions, *grid);
-	/*
-	 * TODO: while solution can be placed, reduce the size of the grid
-	 * by one and try again. When not working : keep the size+1 for
-	 * next resolution.
-	 */
-	return (solutions);
+    *grid = get_grid(++square_size, grid);
+    try_bloc_order(array, *grid, order);
+    // The new solution shall now be compared to the reference.
+    *p_ref = best_solution(grid, new_order, *p_ref);
+    return (t_ref);
 }
 
 /*
@@ -86,21 +94,15 @@ t_solution		**optimize_solution(char ***grid, char ***array, t_order *order, t_s
  * needed.
  * "order" is supposed already allocated at the good size, and cleaned.
  */
-t_solution		**place_bloc(int index, char ***grid, char ***array,
+t_ref		**place_bloc(int index, char ***grid, char ***array,
 		t_order *order)
 {
-	int						square_size;
-	int						bloc_number;
-	static t_solution		**solutions = NULL;
+	int					bloc_number;
+	static t_ref		**p_ref = NULL;
 
 	bloc_number = -1;
-	square_size = 120;
-	if (!(solutions))
-	{
-		if (!(solutions = (t_solution **)malloc(sizeof(t_solution *))))
-			return (NULL);
-		*solutions = NULL;
-	}
+	if (!(p_ref) && !(p_ref = create_ref()))
+        return (NULL);
 	while (array[++bloc_number])
 	{
 		if (!elt_in_array(bloc_number, order))
@@ -108,26 +110,10 @@ t_solution		**place_bloc(int index, char ***grid, char ***array,
 			(order->order)[index] = bloc_number;
 			if (index + 1 == order->length)
 				solutions = optimize_solution(grid, array, order, solutions);
-			// Si dernier bloc mis en ordre : tente une résolution
-			// A solution has been found in the smallest square so far.
-			// Could be optimized to be smaller.
-/*			if (index + 1 == order->length && (try_bloc_order(array, *grid, order)))
-			{
-				square_size = get_square_size(grid);
-				while ((try_bloc_order(array, *grid, order)))
-					*grid = get_grid(--square_size, grid);
-				solutions = append_solution(orddup(order), solutions, *grid);
-				*grid = get_grid((*solutions)->square_size , grid);
-				/ *
-				 * TODO: while solution can be placed, reduce the size of the grid
-				 * by one and try again. When not working : keep the size+1 for
-				 * next resolution.
-				 * /
-			}*/
 			else if (index + 1 < order->length)
 				place_bloc(index + 1, grid, array, order);
 		}
 	}
 	(order->order)[index] = -1;
-	return (solutions);
+	return (p_ref);
 }
