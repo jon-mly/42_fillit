@@ -37,7 +37,7 @@ static void	shift_columns_top(char **tetri)
  {
  	int		c;
  	int		l;
-a
+
  	c = -1;
  	while (++c < 4)
  	{

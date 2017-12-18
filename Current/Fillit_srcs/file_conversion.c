@@ -11,7 +11,7 @@
   * Will delete the node given in parameter and will return the one pointed by
   * next.
   */
- static t_filechar	     *switch_to_next(t_filechar **lst)
+ t_filechar	     *switch_to_next(t_filechar **lst)
  {
  	t_filechar	*previous;
 

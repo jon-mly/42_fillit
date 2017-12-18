@@ -34,6 +34,26 @@ int				try_bloc_order(char ***array, char **grid, t_order *order)
 	return (1);
 }
 
+t_ref              *replace_ref(t_order *order, char **grid, t_ref *ref)
+{
+    t_ref   *new_ref;
+
+    if (!(new_ref = (t_ref*)malloc(sizeof(t_ref))))
+        return (NULL);
+    if (ref)
+    {
+        free(ref->order);
+        free(ref);
+        ref = NULL;
+    }
+    new_ref->square_size = get_square_size(grid);
+    new_ref->height = get_max_height(grid);
+    new_ref->width = get_max_width(grid);
+    new_ref->empty_points = get_empty_points(grid);
+    new_ref->order = orddup(order);
+    return (new_ref);
+}
+
 static t_ref       *best_solution(char ***grid, t_order *order, t_ref *ref)
 {
     int     square_size;
@@ -53,6 +73,11 @@ static t_ref       *best_solution(char ***grid, t_order *order, t_ref *ref)
     // 2: si 1=, max_height
     // 3: si 2=, max_width
     // 4: si 3:=, min empty_points
+    if (square_size < ref->square_size || (square_size == ref->square_size &&
+        (height < ref->height || (height == ref->height &&
+        (width < ref->width || (width == ref->width &&
+        (empty_points < ref->empty_points)))))))
+        ref = replace_ref(order, *grid, ref);
     return (ref);
 }
 
@@ -65,24 +90,28 @@ static t_ref       *best_solution(char ***grid, t_order *order, t_ref *ref)
 static t_ref        **optimize_if_needed(char ***grid, char ***array,
     t_order *new_order, t_ref **p_ref)
 {
-    // -- int     square_size;
+    int     square_size;
 
 	// No solution found for the current order in the current grid
     if (!(try_bloc_order(array, *grid, new_order)))
         return (p_ref);
+	square_size = get_square_size(*grid);
 	// A solution has been found : should be optimized if possible to fit a narrower square
 	// Get current square size
     // -- square_size = get_square_size(grid);
 	// Try to fit the blocs into a square with a size reduced by one
-    while ((try_bloc_order(array, *grid, order)))
-		*grid = get_grid(get_square_size(grid) - 1, grid);
+    while ((try_bloc_order(array, *grid, new_order)))
+	{
+		square_size = get_square_size(*grid) - 1;
+		*grid = get_grid(square_size, grid);
+	}
 	// The last square size was too small for the blocs to fit :
 	// the grid is resized to the smallest size in which the blocs fit.
     *grid = get_grid(++square_size, grid);
-    try_bloc_order(array, *grid, order);
+    try_bloc_order(array, *grid, new_order);
     // The new solution shall now be compared to the reference.
     *p_ref = best_solution(grid, new_order, *p_ref);
-    return (t_ref);
+    return (p_ref);
 }
 
 /*
@@ -109,7 +138,7 @@ t_ref		**place_bloc(int index, char ***grid, char ***array,
 		{
 			(order->order)[index] = bloc_number;
 			if (index + 1 == order->length)
-				solutions = optimize_solution(grid, array, order, solutions);
+				p_ref = optimize_if_needed(grid, array, order, p_ref);
 			else if (index + 1 < order->length)
 				place_bloc(index + 1, grid, array, order);
 		}
