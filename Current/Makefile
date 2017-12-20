@@ -36,6 +36,6 @@ clean:
 
 fclean: clean
 	cd $(LIBFT_REP) && make fclean
-	#rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
