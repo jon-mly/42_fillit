@@ -73,10 +73,17 @@ static t_ref       *best_solution(char ***grid, t_order *order, t_ref *ref)
     // 2: si 1=, max_height
     // 3: si 2=, max_width
     // 4: si 3:=, min empty_points
+
     if (square_size < ref->square_size || (square_size == ref->square_size &&
         (height < ref->height || (height == ref->height &&
         (width < ref->width || (width == ref->width &&
         (empty_points < ref->empty_points)))))))
+			/*
+	    if (square_size < ref->square_size || (square_size == ref->square_size &&
+					(width < ref->width || (width == ref->width &&
+	        (height < ref->height || (height == ref->height &&
+	        (empty_points < ref->empty_points)))))))
+			*/
         ref = replace_ref(order, *grid, ref);
     return (ref);
 }

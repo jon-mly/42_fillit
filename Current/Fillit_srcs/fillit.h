@@ -67,7 +67,7 @@ t_filechar     	**convert_file(int fd);
 char	       	***convert_chained_list(t_filechar **lst);
 
 // blocs_validation.c
-// ->
+int						bloc_is_valid(char ***tetris);
 
 // tools.c
 t_ref   		**create_ref(void);
@@ -89,5 +89,6 @@ int				add_tetri_to_grid(char **grid, char **tetri);
 
 // chained_list_verification.c
 int				file_is_correct(t_filechar **lst);
+
 
 #endif

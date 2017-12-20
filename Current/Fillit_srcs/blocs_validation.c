@@ -1,7 +1,15 @@
 #include "fillit.h"
 #include <stdio.h>
 
-int		case_number_valid(char **tab)
+/*
+ * These functions are called when each bloc has to be validated. It is to
+ * happen once the chained list has been converted into an array of char** and
+ * before beginning the resolution.
+ *
+ * SEE ALSO : in Legacy code, tetriminos_check.c
+ */
+
+static int		case_number_valid(char **tab)
 {
 	int x;
 	int y;
@@ -26,7 +34,7 @@ int		case_number_valid(char **tab)
 		return (0);
 }
 
-int		tetriminos_valid(char **tab)
+static int		tetriminos_valid(char **tab)
 {
 	int x;
 	int y;
@@ -55,22 +63,15 @@ int		tetriminos_valid(char **tab)
 	return (0);
 }
 
-int main()
+int		bloc_is_valid(char ***tetris)
 {
-	char **tab;
+	int i;
 
-	tab = malloc(sizeof(char *) * 4);
-	tab[0] = "...A";
-	tab[1] = "...A";
-	tab[2] = "..AA";
-	tab[3] = "....";
-	ft_putnbr(case_number_valid(tab));
-	ft_putnbr(tetriminos_valid(tab));
+	i = -1;
+	while (tetris[++i])
+	{
+		if (!(case_number_valid(tetris[i])) || !(tetriminos_valid(tetris[i])))
+			return (0);
+	}
+	return (1);
 }
-/*
- * These functions are called when each bloc has to be validated. It is to
- * happen once the chained list has been converted into an array of char** and
- * before beginning the resolution.
- *
- * SEE ALSO : in Legacy code, tetriminos_check.c
- */

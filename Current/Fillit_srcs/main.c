@@ -23,10 +23,23 @@ int     main(int ac, char **av)
 	if (fd < 2)
 		exit_with_error();
 	t_filechar **lst = convert_file(fd);
+//ft_putendl("11");
+//ft_putnbr((int)lst);
+//ft_putchar('\n');
+//ft_putnbr((int)*lst);
+//ft_putchar('\n');
+	if ((int)*lst == 0)
+		exit_with_error();
 	if (!(file_is_correct(lst)))
 		exit_with_error();
+	//ft_putendl("22");
 	int size = count_blocs(lst);
+//ft_putendl("33");
 	char ***array = convert_chained_list(lst);
+//ft_putendl("44");
+	if (!(bloc_is_valid(array)))
+		exit_with_error();
+	//ft_putendl("55");
 	char ***grid = (char ***)malloc(sizeof(char **));
 	*grid = get_grid(size * 4, NULL);
 	t_order *order = malloc(size * sizeof(t_order));
