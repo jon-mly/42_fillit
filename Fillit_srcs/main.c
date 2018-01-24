@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmlynarc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/24 14:57:44 by jmlynarc          #+#    #+#             */
+/*   Updated: 2018/01/24 15:10:27 by jmlynarc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 void	exit_with_error(void)
@@ -6,22 +18,22 @@ void	exit_with_error(void)
 	exit(-1);
 }
 
-void display_grid(char **grid)
+void	display_grid(char **grid)
 {
-	int l;
+	int		l;
 
 	l = 0;
 	while (grid[l])
 		ft_putendl(grid[l++]);
 }
 
-int     main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	int			fd;
-	int 		size;
-	t_filechar 	**lst;
-	char 		***array;
-	char 		***grid;
+	int			size;
+	t_filechar	**lst;
+	char		***array;
+	char		***grid;
 
 	if (ac != 2)
 		exit_with_error();

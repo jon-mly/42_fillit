@@ -1,29 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_conversion.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmlynarc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/24 14:56:18 by jmlynarc          #+#    #+#             */
+/*   Updated: 2018/01/24 15:08:40 by jmlynarc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 /*
- * These functions are to be used when :
- * the file is read char by char : a chained list should be created. To do so,
- * convert_file(1) should be called. (First step once the file descriptor is
- * verified and validated).
- */
+** These functions are to be used when :
+** the file is read char by char : a chained list should be created. To do so,
+** convert_file(1) should be called. (First step once the file descriptor is
+** verified and validated).
+*/
 
- /*
-  * Will delete the node given in parameter and will return the one pointed by
-  * next.
-  */
- t_filechar	     *switch_to_next(t_filechar **lst)
- {
- 	t_filechar	*previous;
+/*
+** Will delete the node given in parameter and will return the one pointed by
+** next.
+*/
 
- 	if (lst && *lst)
- 	{
- 		previous = *lst;
- 		*lst = (*lst)->next;
- 		free(previous);
- 		previous = NULL;
- 	}
- 	return (*lst);
- }
+t_filechar				*switch_to_next(t_filechar **lst)
+{
+	t_filechar	*previous;
+
+	if (lst && *lst)
+	{
+		previous = *lst;
+		*lst = (*lst)->next;
+		free(previous);
+		previous = NULL;
+	}
+	return (*lst);
+}
 
 static t_filechar		*create_object(char c)
 {
@@ -36,7 +49,7 @@ static t_filechar		*create_object(char c)
 	return (new_object);
 }
 
-t_filechar	             **convert_file(int fd)
+t_filechar				**convert_file(int fd)
 {
 	t_filechar		**begin_list;
 	t_filechar		*current_object;

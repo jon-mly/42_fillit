@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_grid.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmlynarc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/24 14:56:49 by jmlynarc          #+#    #+#             */
+/*   Updated: 2018/01/24 15:09:11 by jmlynarc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 /*
- * These functions are used to add a bloc to the square grid.
- * When a bloc is passed in parameter of att_tetri_to_grid(2), the possibility
- * to place it is checked, and if possible, it is added to the grid.
- */
+** These functions are used to add a bloc to the square grid.
+** When a bloc is passed in parameter of att_tetri_to_grid(2), the possibility
+** to place it is checked, and if possible, it is added to the grid.
+*/
 
 static int		c_bloc(char c)
 {
@@ -12,9 +24,10 @@ static int		c_bloc(char c)
 }
 
 /*
- * return 1 if the tetri can be placed from or_l, or_c in grid, else 0.
- */
-int		can_add_tetri(char **grid, char **tetri, int or_l, int or_c)
+** return 1 if the tetri can be placed from or_l, or_c in grid, else 0.
+*/
+
+int				can_add_tetri(char **grid, char **tetri, int or_l, int or_c)
 {
 	int		t_l;
 	int		t_c;
@@ -43,7 +56,8 @@ int		can_add_tetri(char **grid, char **tetri, int or_l, int or_c)
 	return (1);
 }
 
-void	    move_bloc_to_grid(char **grid, char **tetri, int or_l, int or_c)
+void			move_bloc_to_grid(char **grid, char **tetri, int or_l,
+		int or_c)
 {
 	int		t_l;
 	int		t_c;
@@ -60,7 +74,7 @@ void	    move_bloc_to_grid(char **grid, char **tetri, int or_l, int or_c)
 	}
 }
 
-void 			clear_letter(char letter, char **grid)
+void			clear_letter(char letter, char **grid)
 {
 	int		l;
 	int		c;

@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmlynarc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/24 14:58:13 by jmlynarc          #+#    #+#             */
+/*   Updated: 2018/01/24 15:10:56 by jmlynarc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 /*
- * This file groups functions that do not belong to any other file.
- */
+** This file groups functions that do not belong to any other file.
+*/
 
-t_ref   **create_ref(void)
+t_ref		**create_ref(void)
 {
-    t_ref   **new_ref;
+	t_ref	**new_ref;
 
-    if (!(new_ref = (t_ref**)malloc(sizeof(t_ref*))) ||
-        !(*new_ref = (t_ref*)malloc(sizeof(t_ref))))
-        return (NULL);
-    (*new_ref)->square_size = MAX_GRID_PAR;
-    (*new_ref)->height = MAX_GRID_PAR;
-    (*new_ref)->width = MAX_GRID_PAR;
-    (*new_ref)->empty_points = MAX_GRID_PAR * MAX_GRID_PAR;
-    (*new_ref)->order = NULL;
-    return (new_ref);
+	if (!(new_ref = (t_ref**)malloc(sizeof(t_ref*))) ||
+			!(*new_ref = (t_ref*)malloc(sizeof(t_ref))))
+		return (NULL);
+	(*new_ref)->square_size = MAX_GRID_PAR;
+	(*new_ref)->height = MAX_GRID_PAR;
+	(*new_ref)->width = MAX_GRID_PAR;
+	(*new_ref)->empty_points = MAX_GRID_PAR * MAX_GRID_PAR;
+	(*new_ref)->order = NULL;
+	return (new_ref);
 }
 
 t_order		*orddup(t_order *order)
@@ -25,7 +37,7 @@ t_order		*orddup(t_order *order)
 	int			i;
 
 	if (!(order) || !(dest = (t_order *)malloc(sizeof(t_order))) ||
-		!(dest->order = (int *)malloc(order->length * sizeof(int))))
+			!(dest->order = (int *)malloc(order->length * sizeof(int))))
 		return (NULL);
 	i = -1;
 	dest->length = order->length;
@@ -34,7 +46,7 @@ t_order		*orddup(t_order *order)
 	return (dest);
 }
 
-int		count_blocs(t_filechar **lst)
+int			count_blocs(t_filechar **lst)
 {
 	t_filechar	*current;
 	size_t		size;
@@ -54,10 +66,11 @@ int		count_blocs(t_filechar **lst)
 }
 
 /*
- * Alloc a grid "square-shaped" of the length given in parameter.
- * If a pointer is given in second parameter, the grid pointed will be dealloc.
- */
-char	**get_grid(int size, char **previous_grid)
+** Alloc a grid "square-shaped" of the length given in parameter.
+** If a pointer is given in second parameter, the grid pointed will be dealloc.
+*/
+
+char		**get_grid(int size, char **previous_grid)
 {
 	int		i;
 	char	**new_grid;
@@ -71,7 +84,7 @@ char	**get_grid(int size, char **previous_grid)
 		free(previous_grid);
 	}
 	if (!(new_grid = (char **)malloc((size + 1) * sizeof(char *))) ||
-		!(buffer = ft_strnew(size)))
+			!(buffer = ft_strnew(size)))
 		return (NULL);
 	i = -1;
 	ft_memset(buffer, '.', size);
@@ -82,7 +95,7 @@ char	**get_grid(int size, char **previous_grid)
 	return (new_grid);
 }
 
-void	clear_grid(char **grid)
+void		clear_grid(char **grid)
 {
 	int		l;
 	int		c;
@@ -97,10 +110,11 @@ void	clear_grid(char **grid)
 }
 
 /*
- * Function to know if an int (0 or above, array closed by -1) is in the array
- * given in parameter.
- */
-int		elt_in_array(int nb, t_order *order)
+** Function to know if an int (0 or above, array closed by -1) is in the array
+** given in parameter.
+*/
+
+int			elt_in_array(int nb, t_order *order)
 {
 	int		i;
 

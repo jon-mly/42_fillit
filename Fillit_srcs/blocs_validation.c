@@ -1,19 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   blocs_validation.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmlynarc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/24 14:33:41 by jmlynarc          #+#    #+#             */
+/*   Updated: 2018/01/24 15:05:43 by jmlynarc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
-#include <stdio.h>
 
 /*
- * These functions are called when each bloc has to be validated. It is to
- * happen once the chained list has been converted into an array of char** and
- * before beginning the resolution.
- *
- * SEE ALSO : in Legacy code, tetriminos_check.c
- */
+** These functions are called when each bloc has to be validated. It is to
+** happen once the chained list has been converted into an array of char** and
+** before beginning the resolution.
+**
+** SEE ALSO : in Legacy code, tetriminos_check.c
+*/
 
 static int		case_number_valid(char **tab)
 {
-	int x;
-	int y;
-	int count;
+	int		x;
+	int		y;
+	int		count;
 
 	count = 0;
 	y = 0;
@@ -36,9 +47,9 @@ static int		case_number_valid(char **tab)
 
 static int		tetriminos_valid(char **tab)
 {
-	int x;
-	int y;
-	int count;
+	int		x;
+	int		y;
+	int		count;
 
 	count = 0;
 	y = 0;
@@ -63,9 +74,9 @@ static int		tetriminos_valid(char **tab)
 	return (0);
 }
 
-int		bloc_is_valid(char ***tetris)
+int				bloc_is_valid(char ***tetris)
 {
-	int i;
+	int		i;
 
 	i = -1;
 	while (tetris[++i])

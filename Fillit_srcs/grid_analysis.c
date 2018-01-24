@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   grid_analysis.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmlynarc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/24 14:57:28 by jmlynarc          #+#    #+#             */
+/*   Updated: 2018/01/24 15:09:28 by jmlynarc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 /*
- * These functions are used to analyse a grid (char** containing all the blocs)
- * to get its properties (size, height, width, empty points inside the group of
- * blocs).
- * They are called in backtracking.c when a newly found solution is compared
- * to the reference solution so far.
- */
+** These functions are used to analyse a grid (char** containing all the blocs)
+** to get its properties (size, height, width, empty points inside the group of
+** blocs).
+** They are called in backtracking.c when a newly found solution is compared
+** to the reference solution so far.
+*/
 
 int		get_max_height(char **grid)
 {
