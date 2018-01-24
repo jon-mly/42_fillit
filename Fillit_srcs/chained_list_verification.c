@@ -6,7 +6,7 @@
 /*   By: jmlynarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 14:34:37 by jmlynarc          #+#    #+#             */
-/*   Updated: 2018/01/24 15:07:43 by jmlynarc         ###   ########.fr       */
+/*   Updated: 2018/01/24 15:20:34 by jmlynarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ int		structure_is_correct(t_filechar **lst)
 	is_bloc = 1;
 	while (current)
 	{
+		/*
 		if (!(is_bloc) && !(perform_is_end(current, &bloc_count, &is_bloc,
 						&line_count)))
 			return (0);
-		/*
+		*/
 		if (!is_bloc)
 		{
 			if (bloc_count != 4)
@@ -84,21 +85,21 @@ int		structure_is_correct(t_filechar **lst)
 			is_bloc = 1;
 			line_count = 0;
 		}
-		*/
 		else
 		{
-			/*
+			
 			bloc_count += (current->c == '#');
 			if ((char_count == 4 && current->c != '\n') || (char_count < 4 &&
 						current->c != '.' && current->c != '#'))
 				return (0);
 			line_count += (char_count == 4);
 			char_count = (char_count == 4) ? 0 : char_count + 1;
-			*/
+			/*
 			if (!(perform_is_bloc(current, &bloc_count, &char_count,
 							&line_count)))
 				return (0);
-			is_bloc = line_count == 4 && bloc_count == 4;
+			*/
+			is_bloc = !(line_count == 4 && bloc_count == 4);
 		}
 		current = current->next;
 	}
