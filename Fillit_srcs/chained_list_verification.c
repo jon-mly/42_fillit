@@ -6,7 +6,7 @@
 /*   By: jmlynarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 14:34:37 by jmlynarc          #+#    #+#             */
-/*   Updated: 2018/01/25 18:06:28 by jmlynarc         ###   ########.fr       */
+/*   Updated: 2018/01/25 18:28:00 by rosanche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		perform_is_end(t_filechar *current, int *p_bloc_count, int *p_is_bloc,
 		if (*p_bloc_count != 4)
 			return (0);
 		*p_bloc_count = 0;
-		if (current->c !='\n')
+		if (current->c != '\n')
 			return (0);
 		*p_is_bloc = 1;
 		*p_line_count = 0;
@@ -57,37 +57,7 @@ int		perform_is_bloc(t_filechar *current, int *p_bloc_count,
 	*p_char_count = (*p_char_count == 4) ? 0 : (*p_char_count) + 1;
 	return (1);
 }
-/*
-int		structure_is_correct(t_filechar **lst)
-{
-	t_filechar	*current;
-	int			line_count;
-	int			char_count;
-	int			is_bloc;
-	int			bloc_count;
 
-	current = *lst;
-	line_count = 0;
-	char_count = 0;
-	bloc_count = 0;
-	is_bloc = 1;
-	while (current)
-	{
-		if (!(is_bloc))
-		{
-			if (!(perform_is_end(current, &bloc_count, &is_bloc,
-							&line_count)))
-				return (0);
-		}
-		else if (!(perform_is_bloc(current, &bloc_count, &char_count,
-							&line_count)))
-				return (0);
-		is_bloc = ((is_bloc) && !(line_count == 4 && bloc_count == 4));
-		current = current->next;
-	}
-	return (!(is_bloc) || (is_bloc && line_count == 4 && bloc_count == 4));
-}
-*/
 int		structure_is_correct(t_filechar *lst)
 {
 	int			line_count;
@@ -108,9 +78,9 @@ int		structure_is_correct(t_filechar *lst)
 				return (0);
 		}
 		else if (!(perform_is_bloc(lst, &bloc_count, &char_count,
-							&line_count)))
-				return (0);
-		is_bloc = ((is_bloc) && !(line_count == 4 && bloc_count == 4));
+				&line_count)))
+			return (0);
+		is_bloc = (is_bloc && !(line_count == 4 && bloc_count == 4));
 		lst = lst->next;
 	}
 	return (!(is_bloc) || (is_bloc && line_count == 4 && bloc_count == 4));
