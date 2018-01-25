@@ -16,6 +16,7 @@ SRCS = $(LIBFT_REP)libft.a \
 		$(FILLIT_REP)file_conversion.c \
 		$(FILLIT_REP)grid_analysis.c \
 		$(FILLIT_REP)tools.c \
+		$(FILLIT_REP)tools2.c \
 		$(FILLIT_REP)fill_grid.c \
 		$(FILLIT_REP)chained_list_verification.c \
 

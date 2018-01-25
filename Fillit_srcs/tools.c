@@ -6,7 +6,7 @@
 /*   By: jmlynarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 14:58:13 by jmlynarc          #+#    #+#             */
-/*   Updated: 2018/01/24 15:10:56 by jmlynarc         ###   ########.fr       */
+/*   Updated: 2018/01/25 17:49:01 by jmlynarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,6 @@
 /*
 ** This file groups functions that do not belong to any other file.
 */
-
-t_ref		**create_ref(void)
-{
-	t_ref	**new_ref;
-
-	if (!(new_ref = (t_ref**)malloc(sizeof(t_ref*))) ||
-			!(*new_ref = (t_ref*)malloc(sizeof(t_ref))))
-		return (NULL);
-	(*new_ref)->square_size = MAX_GRID_PAR;
-	(*new_ref)->height = MAX_GRID_PAR;
-	(*new_ref)->width = MAX_GRID_PAR;
-	(*new_ref)->empty_points = MAX_GRID_PAR * MAX_GRID_PAR;
-	(*new_ref)->order = NULL;
-	return (new_ref);
-}
 
 t_order		*orddup(t_order *order)
 {
