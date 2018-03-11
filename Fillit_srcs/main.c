@@ -51,7 +51,6 @@ int		main(int ac, char **av)
 		exit_with_error();
 	if (!(file_is_correct(lst)) || count_blocs(lst) > 26)
 		exit_with_error();
-//	size = count_blocs(lst);
 	array = convert_chained_list(lst);
 	if (!(bloc_is_valid(array)))
 		exit_with_error();
