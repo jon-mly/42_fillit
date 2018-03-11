@@ -14,7 +14,13 @@
 
 void	exit_with_error(void)
 {
-	ft_putstr_fd("error", 1);
+	ft_putstr_fd("error\n", 1);
+	exit(-1);
+}
+
+void	exit_usage(void)
+{
+	ft_putstr_fd("usage: fillit file_to_read\n", 1);
 	exit(-1);
 }
 
@@ -30,27 +36,27 @@ void	display_grid(char **grid)
 int		main(int ac, char **av)
 {
 	int			fd;
-	int			size;
+//	int			size;
 	t_filechar	**lst;
 	char		***array;
 	char		***grid;
 
 	if (ac != 2)
-		exit_with_error();
+		exit_usage();
 	fd = open(av[1], O_RDONLY);
 	if (fd < 2)
 		exit_with_error();
 	lst = convert_file(fd);
 	if ((int)*lst == 0)
 		exit_with_error();
-	if (!(file_is_correct(lst)))
+	if (!(file_is_correct(lst)) || count_blocs(lst) > 26)
 		exit_with_error();
-	size = count_blocs(lst);
+//	size = count_blocs(lst);
 	array = convert_chained_list(lst);
 	if (!(bloc_is_valid(array)))
 		exit_with_error();
 	grid = (char ***)malloc(sizeof(char **));
-	*grid = get_grid(size / size, NULL);
+	*grid = get_grid(1, NULL);
 	*grid = resolve_placements(grid, array);
 	display_grid(*grid);
 	return (0);
